@@ -1,0 +1,11 @@
+# robots.txt for Kenn Excel Omisol's Portfolio
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://example.com/sitemap.xml
+
+# Disallow access to specific files
+Disallow: /js/service-worker.js
+Disallow: /offline.html 
