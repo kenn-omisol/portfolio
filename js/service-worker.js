@@ -3,10 +3,8 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/css/styles.css',
-  '/js/script.js',
-  '/assets/profile.jpg',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+  '/js/script.js'
+  // Removed other items that might be causing issues
 ];
 
 // Install event - cache assets
@@ -14,7 +12,17 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        return cache.addAll(urlsToCache);
+        console.log('Opened cache');
+        // Caching critical assets first, ignoring failures
+        return Promise.allSettled(
+          urlsToCache.map(url => 
+            cache.add(url).catch(error => {
+              console.error('Failed to cache:', url, error);
+              // Continue despite error
+              return Promise.resolve();
+            })
+          )
+        );
       })
       .then(() => {
         return self.skipWaiting();

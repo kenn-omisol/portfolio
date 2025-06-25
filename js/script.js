@@ -806,7 +806,7 @@ if (contactForm) {
         if (typeof emailjs !== 'undefined') {
             console.log("EmailJS is defined, preparing to send email with params:", JSON.stringify(templateParams));
             // Send email using EmailJS - updated format for v3
-            emailjs.send('portfolio_contact', 'portfolio_contact', templateParams)
+            emailjs.send('service_portfolio', 'template_contact', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     
@@ -838,9 +838,9 @@ if (contactForm) {
                     if (error.text) {
                         errorDetails = `: ${error.text}`;
                         if (error.text.includes("service_id")) {
-                            errorDetails += ". Check if your service ID 'portfolio_contact' is correct.";
+                            errorDetails += ". Check if your service ID is correct.";
                         } else if (error.text.includes("template_id")) {
-                            errorDetails += ". Check if your template ID 'portfolio_contact' is correct.";
+                            errorDetails += ". Check if your template ID is correct.";
                         } else if (error.text.includes("user_id")) {
                             errorDetails += ". Check if your public key is correct.";
                         }
@@ -860,7 +860,7 @@ if (contactForm) {
                     setTimeout(() => {
                         errorMessage.style.opacity = '0';
                         setTimeout(() => errorMessage.remove(), 500);
-                    }, 4000);
+                    }, 5000);
                 });
         } else {
             // EmailJS not loaded - display error
