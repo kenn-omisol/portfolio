@@ -2,7 +2,7 @@
   "name": "Kenn Excel Omisol Portfolio",
   "short_name": "Kenn Omisol",
   "description": "Tech-Savvy Virtual Assistant & Bookkeeper specializing in AI-Powered Automation",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",

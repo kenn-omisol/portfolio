@@ -804,12 +804,9 @@ if (contactForm) {
         
         // Check if emailjs is defined
         if (typeof emailjs !== 'undefined') {
-            console.log("EmailJS is defined, preparing to send email with params:", JSON.stringify(templateParams));
             // Send email using EmailJS - updated format for v3
-            emailjs.send('service_portfolio', 'template_contact', templateParams)
+            emailjs.send('portfolio_contact', 'portfolio_contact', templateParams)
                 .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    
                     // Create success message
                     const successMessage = document.createElement('div');
                     successMessage.className = 'success-message';
@@ -831,8 +828,6 @@ if (contactForm) {
                         setTimeout(() => successMessage.remove(), 500);
                     }, 3000);
                 }, function(error) {
-                    console.log('FAILED...', error);
-                    
                     // Create error message with more details
                     let errorDetails = '';
                     if (error.text) {

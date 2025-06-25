@@ -1,90 +1,101 @@
-const CACHE_NAME = 'kenn-omisol-portfolio-v1';
+const CACHE_NAME = 'kenn-omisol-portfolio-v2';
 const urlsToCache = [
-  '/',
   '/index.html',
   '/css/styles.css',
   '/js/script.js'
-  // Removed other items that might be causing issues
 ];
+
+// Silently handle errors and prevent console logs
+const silentCacheAdd = async (cache, url) => {
+  try {
+    await cache.add(url);
+  } catch (e) {
+    // Silently ignore errors
+  }
+};
 
 // Install event - cache assets
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        // Caching critical assets first, ignoring failures
-        return Promise.allSettled(
-          urlsToCache.map(url => 
-            cache.add(url).catch(error => {
-              console.error('Failed to cache:', url, error);
-              // Continue despite error
-              return Promise.resolve();
-            })
-          )
-        );
-      })
-      .then(() => {
-        return self.skipWaiting();
-      })
+    (async () => {
+      try {
+        const cache = await caches.open(CACHE_NAME);
+        // Add each URL individually and ignore errors
+        await Promise.all(urlsToCache.map(url => silentCacheAdd(cache, url)));
+        await self.skipWaiting();
+      } catch (e) {
+        // Silently ignore errors
+      }
+    })()
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.filter(cacheName => {
-          return cacheName !== CACHE_NAME;
-        }).map(cacheName => {
-          return caches.delete(cacheName);
-        })
-      );
-    }).then(() => {
-      return self.clients.claim();
-    })
+    (async () => {
+      try {
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames
+            .filter(cacheName => cacheName !== CACHE_NAME)
+            .map(cacheName => caches.delete(cacheName))
+        );
+        await self.clients.claim();
+      } catch (e) {
+        // Silently ignore errors
+      }
+    })()
   );
 });
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+  
+  // Skip non-HTTP(S) requests
+  if (!event.request.url.startsWith('http')) return;
+  
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached response if found
-        if (response) {
-          return response;
+    (async () => {
+      try {
+        // Try cache first
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+
+        // Otherwise try network
+        try {
+          const networkResponse = await fetch(event.request);
+          
+          // Only cache successful responses from our own origin
+          if (
+            networkResponse.ok && 
+            event.request.url.startsWith(self.location.origin) &&
+            !event.request.url.includes('/api/')
+          ) {
+            try {
+              const cache = await caches.open(CACHE_NAME);
+              cache.put(event.request, networkResponse.clone());
+            } catch (e) {
+              // Silently ignore cache errors
+            }
+          }
+          
+          return networkResponse;
+        } catch (e) {
+          // Network failed, try to return something useful
+          if (event.request.url.endsWith('.html') || event.request.mode === 'navigate') {
+            const cache = await caches.open(CACHE_NAME);
+            return cache.match('/index.html');
+          }
+          // Otherwise just let the error happen
+          throw e;
         }
-
-        // Clone the request
-        const fetchRequest = event.request.clone();
-
-        // Try network and cache response
-        return fetch(fetchRequest)
-          .then(response => {
-            // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            // Cache the fetched response
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          })
-          .catch(() => {
-            // Fallback content for offline access
-            if (event.request.url.indexOf('.html') > -1) {
-              return caches.match('/index.html');
-            }
-          });
-      })
+      } catch (e) {
+        // Last resort fallback
+        return new Response('Network error', { status: 408, headers: { 'Content-Type': 'text/plain' } });
+      }
+    })()
   );
 }); 
