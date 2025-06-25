@@ -12,6 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="theme-color" content="#4361ee">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Public key initialization
+            emailjs.init("EndDpT4I6pJ-69LTU");
+        })();
+    </script>
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -142,7 +150,7 @@
                         <p>Email management, calendar organization, client coordination, and administrative tasks—all handled with precision and attention to detail.</p>
                         <div class="service-highlight">
                             <i class="fas fa-check-circle"></i>
-                            <span>Saved clients 8+ hours weekly through organized systems</span>
+                            <span>Saved clients significant time through organized systems</span>
                         </div>
                     </div>
                     
@@ -154,7 +162,7 @@
                         <p>Accurate financial record-keeping, account reconciliation, expense tracking, and reporting with QuickBooks and Excel expertise.</p>
                         <div class="service-highlight">
                             <i class="fas fa-check-circle"></i>
-                            <span>Streamlined month-end closing by 40%</span>
+                            <span>Streamlined month-end closing process substantially</span>
                         </div>
                     </div>
                     
@@ -178,7 +186,7 @@
                         <p>Development of personalized VBA macros, Excel automation, and workflow scripts to eliminate repetitive tasks.</p>
                         <div class="service-highlight">
                             <i class="fas fa-check-circle"></i>
-                            <span>Reduced 4-hour manual process to 10 minutes</span>
+                            <span>Dramatically reduced manual processing time</span>
                         </div>
                     </div>
                     
@@ -190,7 +198,7 @@
                         <p>Integration of AI tools with existing workflows to create intelligent, self-managing systems for data processing and reporting.</p>
                         <div class="service-highlight">
                             <i class="fas fa-check-circle"></i>
-                            <span>Cut document processing time by 80%</span>
+                            <span>Significantly decreased document processing time</span>
                         </div>
                     </div>
                 </div>
@@ -798,15 +806,7 @@
                                 <input type="email" id="email" name="email" placeholder="Your Email" required>
                             </div>
                             <div class="form-group">
-                                        <select id="service-interest" name="service-interest" required>
-                                            <option value="" selected disabled>Services Interested In</option>
-                                            <option value="virtual-assistance">Virtual Assistance</option>
-                                            <option value="bookkeeping">Bookkeeping & Financial Tracking</option>
-                                            <option value="data-entry">Data Entry & Spreadsheets</option>
-                                            <option value="automation">Custom Automation</option>
-                                            <option value="ai-integration">AI Integration</option>
-                                            <option value="other">Other Inquiry</option>
-                                        </select>
+                                <input type="text" id="position" name="position" placeholder="Offered Position" required>
                             </div>
                             <div class="form-group">
                                 <textarea id="message" name="message" placeholder="Your Message" required></textarea>
@@ -817,11 +817,11 @@
                             
                             <div class="tab-pane" id="booking-tab">
                                 <div class="calendly-container">
-                                    <p>Schedule a free 30-minute discovery call to discuss how I can help with your specific needs.</p>
+                                    <p>Schedule a free discovery call to discuss your project needs</p>
                                     <!-- Calendly inline widget begin -->
-                                    <div class="calendly-inline-widget" data-url="https://calendly.com/kenn-excel/30min" style="min-width:320px;height:630px;"></div>
-                                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-                                    <!-- Calendly inline widget end -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/kenn-omisol1995?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
                                 </div>
                             </div>
                         </div>

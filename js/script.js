@@ -758,48 +758,130 @@ if (contactForm) {
         e.preventDefault();
         
         let isValid = true;
+        let missingFields = [];
         
-        // Validate all inputs
+        // Clear any existing form-wide error messages
+        const existingFormErrors = contactForm.parentElement.querySelectorAll('.form-error');
+        existingFormErrors.forEach(error => error.remove());
+        
+        // Validate all inputs and collect missing field names
         formInputs.forEach(input => {
-            if (!validateInput(input)) {
+            if (input.type !== 'hidden' && !validateInput(input)) {
                 isValid = false;
+                if (input.value.trim() === '') {
+                    const fieldName = input.placeholder || input.name;
+                    missingFields.push(fieldName);
+                }
             }
         });
         
         if (!isValid) {
+            // Display form-wide error message with specific missing fields
+            if (missingFields.length > 0) {
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message form-error';
+                errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Please fill in the following required fields: ${missingFields.join(', ')}`;
+                contactForm.parentElement.insertBefore(errorMessage, contactForm);
+            }
             return;
         }
         
-        // Show success message with animation
+        // Show sending status with animation
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
         submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
-        // Simulate sending (would be replaced with actual form submission)
-        setTimeout(() => {
-            // Create success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Message sent successfully!';
+        // Prepare template parameters
+        const templateParams = {
+            from_name: document.getElementById('name').value,
+            from_email: document.getElementById('email').value,
+            position: document.getElementById('position').value,
+            message: document.getElementById('message').value,
+            subject: `I want to hire you for the position of ${document.getElementById('position').value}`
+        };
+        
+        // Check if emailjs is defined
+        if (typeof emailjs !== 'undefined') {
+            console.log("EmailJS is defined, preparing to send email with params:", JSON.stringify(templateParams));
+            // Send email using EmailJS - updated format for v3
+            emailjs.send('portfolio_contact', 'portfolio_contact', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Create success message
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Message sent successfully!';
+                    
+                    // Insert before form
+                    contactForm.parentElement.insertBefore(successMessage, contactForm);
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Restore button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Remove success message after delay
+                    setTimeout(() => {
+                        successMessage.style.opacity = '0';
+                        setTimeout(() => successMessage.remove(), 500);
+                    }, 3000);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Create error message with more details
+                    let errorDetails = '';
+                    if (error.text) {
+                        errorDetails = `: ${error.text}`;
+                        if (error.text.includes("service_id")) {
+                            errorDetails += ". Check if your service ID 'portfolio_contact' is correct.";
+                        } else if (error.text.includes("template_id")) {
+                            errorDetails += ". Check if your template ID 'portfolio_contact' is correct.";
+                        } else if (error.text.includes("user_id")) {
+                            errorDetails += ". Check if your public key is correct.";
+                        }
+                    }
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'error-message form-error';
+                    errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Failed to send message${errorDetails}`;
+                    
+                    // Insert before form
+                    contactForm.parentElement.insertBefore(errorMessage, contactForm);
+                    
+                    // Restore button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Remove error message after delay
+                    setTimeout(() => {
+                        errorMessage.style.opacity = '0';
+                        setTimeout(() => errorMessage.remove(), 500);
+                    }, 4000);
+                });
+        } else {
+            // EmailJS not loaded - display error
+            console.error('EmailJS library not loaded');
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message form-error';
+            errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Email service is not available. Please try again later or contact directly via email.';
             
             // Insert before form
-            this.parentElement.insertBefore(successMessage, this);
-            
-            // Reset form
-            this.reset();
+            contactForm.parentElement.insertBefore(errorMessage, contactForm);
             
             // Restore button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
             
-            // Remove success message after delay
+            // Remove error message after delay
             setTimeout(() => {
-                successMessage.style.opacity = '0';
-                setTimeout(() => successMessage.remove(), 500);
-            }, 3000);
-        }, 1500);
+                errorMessage.style.opacity = '0';
+                setTimeout(() => errorMessage.remove(), 500);
+            }, 4000);
+        }
     });
 }
 
@@ -810,8 +892,16 @@ function validateInput(input) {
         errorMessage.remove();
     }
     
+    // Skip hidden fields
+    if (input.type === 'hidden') {
+        return true;
+    }
+    
+    // Get field name for error message
+    const fieldName = input.placeholder || input.name || 'Field';
+    
     if (input.value.trim() === '') {
-        showError(input, 'This field is required');
+        showError(input, `${fieldName} is required`);
         return false;
     }
     
@@ -819,7 +909,7 @@ function validateInput(input) {
     if (input.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(input.value.trim())) {
-            showError(input, 'Please enter a valid email address');
+            showError(input, `Please enter a valid email address`);
             return false;
         }
     }
@@ -835,7 +925,11 @@ function showError(input, message) {
     errorDiv.className = 'error-message';
     errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
     
+    // Add to parent element
     input.parentElement.appendChild(errorDiv);
+    
+    // Scroll to the input with error
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Enhanced Resume Download with animation
