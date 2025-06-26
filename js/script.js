@@ -930,26 +930,18 @@ function showError(input, message) {
 // Enhanced Resume Download with animation
 if (downloadButton) {
     downloadButton.addEventListener('click', function(e) {
-        e.preventDefault();
+        // Don't prevent default to allow the href to work
         
         // Animate the button
         this.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Preparing...';
         this.classList.add('downloading');
         
-        // Simulate download delay (would be replaced with actual download)
+        // Short animation before navigating to resume.html
         setTimeout(() => {
-            // Show success feedback
-            this.innerHTML = '<i class="fas fa-check"></i> Downloaded';
+            this.innerHTML = '<i class="fas fa-check"></i> Opening Resume';
             
-            // Reset after delay
-            setTimeout(() => {
-                this.innerHTML = 'Download Resume';
-                this.classList.remove('downloading');
-            }, 2000);
-            
-            // In production, trigger actual download
-            // window.open('path/to/resume.pdf', '_blank');
-        }, 1200);
+            // The page will navigate to resume.html after this brief delay
+        }, 300);
     });
 }
 

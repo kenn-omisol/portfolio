@@ -172,6 +172,10 @@
                 <span>📍</span>
                 <span>Iligan City, Philippines</span>
             </div>
+            <div class="contact-item">
+                <span>🌐</span>
+                <span><a href="https://kenn-omisol.github.io/portfolio/" target="_blank">kenn-omisol.github.io/portfolio</a></span>
+            </div>
         </div>
     </div>
     
@@ -228,36 +232,138 @@
     
     <h2>Skills</h2>
     
-    <div class="skills-grid">
+    <style>
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .skill-category {
+            margin-bottom: 0;
+        }
+        
+        .skill-header {
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border-left: 3px solid #4361ee;
+            margin-bottom: 12px;
+        }
+        
+        .skill-category h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px 20px;
+        }
+        
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .skill-level {
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 5px;
+            display: inline-block;
+        }
+        
+        .expert {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .advanced {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .intermediate {
+            background-color: #fff8e1;
+            color: #f9a825;
+        }
+
+        @media print {
+            .skill-header {
+                background-color: #f8f8f8 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .expert {
+                background-color: #e3f2fd !important;
+                color: #1565c0 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .advanced {
+                background-color: #e8f5e9 !important;
+                color: #2e7d32 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .intermediate {
+                background-color: #fff8e1 !important;
+                color: #f9a825 !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+    
+    <div class="skills-container">
         <div class="skill-category">
-            <h3>Admin & Office</h3>
-            <div class="skills-list">
-                <div class="skill-item">Excel & Office Suite (Expert)</div>
-                <div class="skill-item">Data Entry (70-85 WPM)</div>
-                <div class="skill-item">Google Workspace (Expert)</div>
-                <div class="skill-item">Document Management</div>
+            <div class="skill-header">
+                <h3>Admin & Office</h3>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-item">Excel & Office Suite <span class="skill-level expert">Expert</span></div>
+                <div class="skill-item">Data Entry (70-85 WPM) <span class="skill-level expert">Expert</span></div>
+                <div class="skill-item">Google Workspace <span class="skill-level expert">Expert</span></div>
+                <div class="skill-item">Document Management <span class="skill-level advanced">Advanced</span></div>
             </div>
         </div>
         
         <div class="skill-category">
-            <h3>Financial Tools</h3>
-            <div class="skills-list">
-                <div class="skill-item">Excel for Finance (Expert)</div>
-                <div class="skill-item">QuickBooks (Advanced)</div>
-                <div class="skill-item">Google Sheets (Advanced)</div>
-                <div class="skill-item">Financial Reporting</div>
+            <div class="skill-header">
+                <h3>Financial Tools & Bookkeeping</h3>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-item">Excel for Finance <span class="skill-level expert">Expert</span></div>
+                <div class="skill-item">QuickBooks <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Google Sheets <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Financial Reporting <span class="skill-level advanced">Advanced</span></div>
             </div>
         </div>
         
         <div class="skill-category">
-            <h3>Automation & Tech</h3>
-            <div class="skills-list">
-                <div class="skill-item">VBA & Macros (Advanced)</div>
-                <div class="skill-item">Process Automation</div>
-                <div class="skill-item">HTML (Advanced)</div>
-                <div class="skill-item">Google Apps Script</div>
-                <div class="skill-item">SQL (Intermediate)</div>
-                <div class="skill-item">JavaScript (Intermediate)</div>
+            <div class="skill-header">
+                <h3>Automation & Technology</h3>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-item">VBA & Macros <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Process Automation <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">HTML <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Google Apps Script <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">SQL <span class="skill-level intermediate">Intermediate</span></div>
+                <div class="skill-item">JavaScript <span class="skill-level intermediate">Intermediate</span></div>
+            </div>
+        </div>
+        
+        <div class="skill-category">
+            <div class="skill-header">
+                <h3>Professional Skills</h3>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-item">Reporting & Analytics <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Data Visualization <span class="skill-level advanced">Advanced</span></div>
+                <div class="skill-item">Problem Solving <span class="skill-level expert">Expert</span></div>
+                <div class="skill-item">Attention to Detail <span class="skill-level expert">Expert</span></div>
             </div>
         </div>
     </div>
