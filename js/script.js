@@ -927,21 +927,125 @@ function showError(input, message) {
     input.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-// Enhanced Resume Download with animation
+// Load HTML2PDF library
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// Enhanced Resume Download with direct PDF generation
 if (downloadButton) {
     downloadButton.addEventListener('click', function(e) {
-        // Don't prevent default to allow the href to work
+        e.preventDefault();
         
-        // Animate the button
-        this.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Preparing...';
-        this.classList.add('downloading');
+        // Show loading indicator
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'pdf-loading';
+        loadingIndicator.innerHTML = '<div class="spinner"></div><p>Generating PDF...</p>';
+        loadingIndicator.style.position = 'fixed';
+        loadingIndicator.style.top = '0';
+        loadingIndicator.style.left = '0';
+        loadingIndicator.style.width = '100%';
+        loadingIndicator.style.height = '100%';
+        loadingIndicator.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        loadingIndicator.style.display = 'flex';
+        loadingIndicator.style.flexDirection = 'column';
+        loadingIndicator.style.justifyContent = 'center';
+        loadingIndicator.style.alignItems = 'center';
+        loadingIndicator.style.zIndex = '9999';
+        loadingIndicator.style.color = 'white';
         
-        // Short animation before navigating to resume.html
-        setTimeout(() => {
-            this.innerHTML = '<i class="fas fa-check"></i> Opening Resume';
-            
-            // The page will navigate to resume.html after this brief delay
-        }, 300);
+        const spinner = loadingIndicator.querySelector('.spinner');
+        spinner.style.width = '40px';
+        spinner.style.height = '40px';
+        spinner.style.border = '4px solid rgba(255,255,255,0.3)';
+        spinner.style.borderTop = '4px solid white';
+        spinner.style.borderRadius = '50%';
+        spinner.style.animation = 'spin 1s linear infinite';
+        
+        const style = document.createElement('style');
+        style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+        
+        document.body.appendChild(loadingIndicator);
+        
+        // Load html2pdf.js library dynamically
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        script.onload = function() {
+            // Fetch the resume.html content
+            fetch('resume.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Create a temporary container
+                    const container = document.createElement('div');
+                    container.style.position = 'absolute';
+                    container.style.left = '-9999px';
+                    container.style.top = '-9999px';
+                    container.innerHTML = html;
+                    document.body.appendChild(container);
+                    
+                    // Remove elements that shouldn't be in the PDF
+                    const notification = container.querySelector('.notification');
+                    const printButton = container.querySelector('.print-button');
+                    if (notification) notification.remove();
+                    if (printButton) printButton.remove();
+                    
+                    // Get the resume content from the fetched HTML
+                    const resumeContent = container.querySelector('.container') || container;
+                    
+                    // Configure pdf options
+                    const opt = {
+                        margin: [10, 10, 10, 10],
+                        filename: 'Kenn_Excel_Omisol_Resume.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { 
+                            scale: 2,
+                            useCORS: true,
+                            letterRendering: true,
+                            allowTaint: true,
+                            scrollX: 0,
+                            scrollY: 0
+                        },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                    };
+                    
+                    // Generate PDF
+                    html2pdf().from(resumeContent).set(opt).save()
+                        .then(() => {
+                            // Remove the loading indicator and temporary container
+                            document.body.removeChild(loadingIndicator);
+                            document.body.removeChild(container);
+                        })
+                        .catch(err => {
+                            console.error('PDF generation error:', err);
+                            // If there's an error, redirect to the resume page instead
+                            document.body.removeChild(loadingIndicator);
+                            document.body.removeChild(container);
+                            window.open('resume.html', '_blank');
+                        });
+                })
+                .catch(err => {
+                    console.error('Error fetching resume:', err);
+                    // If fetching fails, redirect to the resume page
+                    document.body.removeChild(loadingIndicator);
+                    window.open('resume.html', '_blank');
+                });
+        };
+        
+        script.onerror = function() {
+            // If script loading fails, redirect to resume.html
+            document.body.removeChild(loadingIndicator);
+            window.open('resume.html', '_blank');
+        };
+        
+        document.head.appendChild(script);
     });
 }
 
@@ -1035,4 +1139,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Refresh animations on resize
 window.addEventListener('resize', animateOnScroll);
-window.addEventListener('scroll', animateOnScroll); 
+window.addEventListener('scroll', animateOnScroll);
+
+// PDF Direct Download functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if download resume button exists
+    const downloadResumeBtn = document.getElementById('download-resume');
+    if (downloadResumeBtn) {
+        downloadResumeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Show loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'pdf-loading';
+            loadingIndicator.innerHTML = '<div class="spinner"></div><p>Generating PDF...</p>';
+            loadingIndicator.style.position = 'fixed';
+            loadingIndicator.style.top = '0';
+            loadingIndicator.style.left = '0';
+            loadingIndicator.style.width = '100%';
+            loadingIndicator.style.height = '100%';
+            loadingIndicator.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            loadingIndicator.style.display = 'flex';
+            loadingIndicator.style.flexDirection = 'column';
+            loadingIndicator.style.justifyContent = 'center';
+            loadingIndicator.style.alignItems = 'center';
+            loadingIndicator.style.zIndex = '9999';
+            loadingIndicator.style.color = 'white';
+            
+            const spinner = loadingIndicator.querySelector('.spinner');
+            spinner.style.width = '40px';
+            spinner.style.height = '40px';
+            spinner.style.border = '4px solid rgba(255,255,255,0.3)';
+            spinner.style.borderTop = '4px solid white';
+            spinner.style.borderRadius = '50%';
+            spinner.style.animation = 'spin 1s linear infinite';
+            
+            const style = document.createElement('style');
+            style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+            
+            document.body.appendChild(loadingIndicator);
+            
+            // Load html2pdf.js library dynamically
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = function() {
+                // Fetch the resume.html content
+                fetch('resume.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        // Create a temporary container
+                        const container = document.createElement('div');
+                        container.style.position = 'absolute';
+                        container.style.left = '-9999px';
+                        container.style.top = '-9999px';
+                        container.innerHTML = html;
+                        document.body.appendChild(container);
+                        
+                        // Remove elements that shouldn't be in the PDF
+                        const notification = container.querySelector('.notification');
+                        const printButton = container.querySelector('.print-button');
+                        if (notification) notification.remove();
+                        if (printButton) printButton.remove();
+                        
+                        // Get the resume content from the fetched HTML
+                        const resumeContent = container.querySelector('.container') || container;
+                        
+                        // Configure pdf options
+                        const opt = {
+                            margin: [10, 10, 10, 10],
+                            filename: 'Kenn_Excel_Omisol_Resume.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { 
+                                scale: 2,
+                                useCORS: true,
+                                letterRendering: true,
+                                allowTaint: true,
+                                scrollX: 0,
+                                scrollY: 0
+                            },
+                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                        };
+                        
+                        // Generate PDF
+                        html2pdf().from(resumeContent).set(opt).save()
+                            .then(() => {
+                                // Remove the loading indicator and temporary container
+                                document.body.removeChild(loadingIndicator);
+                                document.body.removeChild(container);
+                            })
+                            .catch(err => {
+                                console.error('PDF generation error:', err);
+                                // If there's an error, redirect to the resume page instead
+                                document.body.removeChild(loadingIndicator);
+                                document.body.removeChild(container);
+                                window.open('resume.html', '_blank');
+                            });
+                    })
+                    .catch(err => {
+                        console.error('Error fetching resume:', err);
+                        // If fetching fails, redirect to the resume page
+                        document.body.removeChild(loadingIndicator);
+                        window.open('resume.html', '_blank');
+                    });
+            };
+            
+            script.onerror = function() {
+                // If script loading fails, redirect to resume.html
+                document.body.removeChild(loadingIndicator);
+                window.open('resume.html', '_blank');
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
+}); 

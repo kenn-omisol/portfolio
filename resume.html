@@ -11,17 +11,32 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
         }
         
         body {
             background: #fff;
             color: #333;
             line-height: 1.6;
-            font-size: 14px;
-            padding: 40px;
-            max-width: 850px;
+            font-size: 11pt;
+            padding: 0;
+            width: 21cm;
+            height: 29.7cm;
             margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            padding: 1.5cm;
+        }
+        
+        .page {
+            position: relative;
+            min-height: 26.7cm; /* 29.7cm - 3cm (for top and bottom padding) */
+        }
+        
+        .page-break {
+            page-break-before: always;
         }
         
         .resume-header {
@@ -31,23 +46,23 @@
         }
         
         .name {
-            font-size: 28px;
+            font-size: 22pt;
             font-weight: 600;
             margin-bottom: 5px;
             color: #4361ee;
         }
         
         .title {
-            font-size: 18px;
+            font-size: 14pt;
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .contact-info {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            font-size: 13px;
+            font-size: 10pt;
             margin-top: 15px;
         }
         
@@ -58,7 +73,7 @@
         }
         
         h2 {
-            font-size: 18px;
+            font-size: 14pt;
             font-weight: 600;
             margin: 25px 0 15px;
             color: #4361ee;
@@ -67,212 +82,88 @@
         }
         
         .profile-summary {
-            margin-bottom: 25px;
-        }
-        
-        .section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            font-size: 10pt;
         }
         
         .experience-item, .education-item {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .job-title, .degree {
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            font-size: 11pt;
         }
         
         .company, .school {
             font-weight: 500;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            font-size: 10pt;
         }
         
         .date {
-            font-size: 13px;
+            font-size: 9pt;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-style: italic;
         }
         
         ul {
             padding-left: 20px;
-            margin-top: 10px;
+            margin: 6px 0;
         }
         
         li {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            font-size: 10pt;
         }
         
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        
-        .skill-category {
-            margin-bottom: 20px;
-        }
-        
-        .skill-category h3 {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: #555;
-        }
-        
-        .skills-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        
-        .skill-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .project-item {
-            margin-bottom: 15px;
-        }
-        
-        .project-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        @media print {
-            body {
-                padding: 0.5in;
-            }
-            
-            @page {
-                size: letter;
-                margin: 0.5in;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="resume-header">
-        <h1 class="name">Kenn Excel Omisol</h1>
-        <p class="title">Tech-Savvy Virtual Assistant & Bookkeeper</p>
-        <p>Specializing in AI-Powered Automation and Precision Data Handling</p>
-        
-        <div class="contact-info">
-            <div class="contact-item">
-                <span>📧</span>
-                <span>kenn.omisol1995@gmail.com</span>
-            </div>
-            <div class="contact-item">
-                <span>📱</span>
-                <span>(+63) 955 152 8561</span>
-            </div>
-            <div class="contact-item">
-                <span>📍</span>
-                <span>Iligan City, Philippines</span>
-            </div>
-            <div class="contact-item">
-                <span>🌐</span>
-                <span><a href="https://kenn-omisol.github.io/portfolio/" target="_blank">kenn-omisol.github.io/portfolio</a></span>
-            </div>
-        </div>
-    </div>
-    
-    <div class="profile-summary">
-        <p>Tech-savvy professional with a passion for creating efficient digital workflows that save time and eliminate errors. Experienced in developing sophisticated automation solutions using AI and macros, with a DIY approach to technology and a focus on transforming complex, manual processes into streamlined digital workflows.</p>
-    </div>
-    
-    <h2>Professional Experience</h2>
-    
-    <div class="experience-item">
-        <div class="job-title">Accounting Assistant</div>
-        <div class="company">Alrose Group of Companies</div>
-        <div class="date">2023 - Present</div>
-        <ul>
-            <li>Managed the complete accounts payable cycle including vendor invoice processing, payment scheduling, and maintaining positive supplier relationships</li>
-            <li>Conducted comprehensive inventory reconciliation through systematic tracking, variance analysis, and coordination with stores</li>
-            <li>Performed accounts receivable reconciliation, ensuring accurate customer payment application</li>
-            <li>Assisted in preparation of month-end and year-end financial reports</li>
-        </ul>
-    </div>
-    
-    <div class="experience-item">
-        <div class="job-title">Virtual Assistant</div>
-        <div class="company">RemoteWorks Inc.</div>
-        <div class="date">2020 - 2022</div>
-        <ul>
-            <li>Provided comprehensive administrative support to multiple executives, managing calendars, emails, and travel arrangements</li>
-            <li>Developed and implemented automated workflows using Google Workspace and Zapier, reducing manual task time</li>
-            <li>Conducted detailed research and created professional presentations for client meetings</li>
-            <li>Maintained confidential documents and managed sensitive information</li>
-        </ul>
-    </div>
-    
-    <div class="experience-item">
-        <div class="job-title">Appointment Setter</div>
-        <div class="company">Vita Brand Lab (Remote)</div>
-        <div class="date">2018 - 2019</div>
-        <ul>
-            <li>Performed strategic background research on leads interacting with company's social media content</li>
-            <li>Established and nurtured professional relationships with high-value prospects</li>
-            <li>Managed lead database with high attention to detail</li>
-        </ul>
-    </div>
-    
-    <div class="experience-item">
-        <div class="job-title">Data Entry Specialist</div>
-        <div class="company">DataCore Services</div>
-        <div class="date">2017 - 2018</div>
-        <ul>
-            <li>Processed high volumes of data with precision (70-85 WPM typing speed)</li>
-            <li>Converted physical documentation to digital formats</li>
-        </ul>
-    </div>
-    
-    <h2>Skills</h2>
-    
-    <style>
         .skills-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
         
         .skill-category {
-            margin-bottom: 0;
+            margin-bottom: 12px;
         }
         
         .skill-header {
             background-color: #f8f9fa;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-left: 3px solid #4361ee;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
         
         .skill-category h3 {
             margin: 0;
             color: #333;
+            font-size: 11pt;
+            font-weight: 600;
         }
         
         .skill-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px 20px;
+            gap: 6px 20px;
+            padding: 0 10px;
         }
         
         .skill-item {
             display: flex;
             align-items: center;
             gap: 5px;
+            font-size: 10pt;
         }
         
         .skill-level {
-            font-size: 12px;
-            padding: 2px 6px;
+            font-size: 8pt;
+            padding: 1px 5px;
             border-radius: 3px;
             margin-left: 5px;
             display: inline-block;
+            font-weight: 500;
         }
         
         .expert {
@@ -289,109 +180,291 @@
             background-color: #fff8e1;
             color: #f9a825;
         }
-
+        
+        .project-item {
+            margin-bottom: 12px;
+        }
+        
+        .project-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 10pt;
+        }
+        
+        .project-description {
+            font-size: 9pt;
+        }
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
         @media print {
-            .skill-header {
-                background-color: #f8f8f8 !important;
-                -webkit-print-color-adjust: exact;
+            body {
+                width: 100%;
+                height: auto;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
-            .expert {
-                background-color: #e3f2fd !important;
-                color: #1565c0 !important;
-                -webkit-print-color-adjust: exact;
+            .page-break {
+                page-break-before: always;
             }
             
-            .advanced {
-                background-color: #e8f5e9 !important;
-                color: #2e7d32 !important;
-                -webkit-print-color-adjust: exact;
-            }
-            
+            .skill-header,
+            .expert,
+            .advanced,
             .intermediate {
-                background-color: #fff8e1 !important;
-                color: #f9a825 !important;
-                -webkit-print-color-adjust: exact;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .print-button, .notification {
+                display: none !important;
             }
         }
+        
+        .print-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4361ee;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            z-index: 100;
+        }
+        
+        .print-button:hover {
+            background-color: #3245b5;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(67, 97, 238, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        .notification a {
+            color: white;
+            font-weight: bold;
+            text-decoration: underline;
+        }
     </style>
-    
-    <div class="skills-container">
-        <div class="skill-category">
-            <div class="skill-header">
-                <h3>Admin & Office</h3>
+</head>
+<body>
+    <div class="container">
+        <!-- Page 1: Header, Summary, Experience (first part) -->
+        <div class="page">
+            <div class="resume-header">
+                <h1 class="name">Kenn Excel Omisol</h1>
+                <p class="title">Tech-Savvy Virtual Assistant & Bookkeeper</p>
+                <p>Specializing in AI-Powered Automation and Precision Data Handling</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>kenn.omisol1995@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>(+63) 955 152 8561</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>Iligan City, Philippines</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>🌐</span>
+                        <span>kenn-omisol.github.io/portfolio</span>
+                    </div>
+                </div>
             </div>
-            <div class="skill-grid">
-                <div class="skill-item">Excel & Office Suite <span class="skill-level expert">Expert</span></div>
-                <div class="skill-item">Data Entry (70-85 WPM) <span class="skill-level expert">Expert</span></div>
-                <div class="skill-item">Google Workspace <span class="skill-level expert">Expert</span></div>
-                <div class="skill-item">Document Management <span class="skill-level advanced">Advanced</span></div>
+            
+            <div class="profile-summary">
+                <p>Tech-savvy professional with a passion for creating efficient digital workflows that save time and eliminate errors. Experienced in developing sophisticated automation solutions using AI and macros, with a DIY approach to technology and a focus on transforming complex, manual processes into streamlined digital workflows.</p>
+            </div>
+            
+            <h2>Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="job-title">Accounting Assistant</div>
+                <div class="company">Alrose Group of Companies</div>
+                <div class="date">2023 - Present</div>
+                <ul>
+                    <li>Managed the complete accounts payable cycle including vendor invoice processing, payment scheduling, and maintaining positive supplier relationships</li>
+                    <li>Conducted comprehensive inventory reconciliation through systematic tracking, variance analysis, and coordination with stores</li>
+                    <li>Performed accounts receivable reconciliation, ensuring accurate customer payment application</li>
+                    <li>Assisted in preparation of month-end and year-end financial reports</li>
+                </ul>
+            </div>
+            
+            <div class="experience-item">
+                <div class="job-title">Virtual Assistant</div>
+                <div class="company">RemoteWorks Inc.</div>
+                <div class="date">2020 - 2022</div>
+                <ul>
+                    <li>Provided comprehensive administrative support to multiple executives, managing calendars, emails, and travel arrangements</li>
+                    <li>Developed and implemented automated workflows using Google Workspace and Zapier, reducing manual task time</li>
+                    <li>Conducted detailed research and created professional presentations for client meetings</li>
+                    <li>Maintained confidential documents and managed sensitive information</li>
+                </ul>
             </div>
         </div>
         
-        <div class="skill-category">
-            <div class="skill-header">
-                <h3>Financial Tools & Bookkeeping</h3>
+        <!-- Page 2: Experience (continued), Skills -->
+        <div class="page page-break">
+            <h2>Professional Experience (continued)</h2>
+            
+            <div class="experience-item">
+                <div class="job-title">Appointment Setter</div>
+                <div class="company">Vita Brand Lab (Remote)</div>
+                <div class="date">2018 - 2019</div>
+                <ul>
+                    <li>Performed strategic background research on leads interacting with company's social media content</li>
+                    <li>Established and nurtured professional relationships with high-value prospects</li>
+                    <li>Managed lead database with high attention to detail</li>
+                </ul>
             </div>
-            <div class="skill-grid">
-                <div class="skill-item">Excel for Finance <span class="skill-level expert">Expert</span></div>
-                <div class="skill-item">QuickBooks <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Google Sheets <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Financial Reporting <span class="skill-level advanced">Advanced</span></div>
+            
+            <div class="experience-item">
+                <div class="job-title">Data Entry Specialist</div>
+                <div class="company">DataCore Services</div>
+                <div class="date">2017 - 2018</div>
+                <ul>
+                    <li>Processed high volumes of data with precision (70-85 WPM typing speed)</li>
+                    <li>Converted physical documentation to digital formats</li>
+                </ul>
+            </div>
+            
+            <h2>Skills</h2>
+            
+            <div class="skills-container">
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <h3>Admin & Office</h3>
+                    </div>
+                    <div class="skill-grid">
+                        <div class="skill-item">Excel & Office Suite <span class="skill-level expert">Expert</span></div>
+                        <div class="skill-item">Data Entry (70-85 WPM) <span class="skill-level expert">Expert</span></div>
+                        <div class="skill-item">Google Workspace <span class="skill-level expert">Expert</span></div>
+                        <div class="skill-item">Document Management <span class="skill-level advanced">Advanced</span></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <h3>Financial Tools & Bookkeeping</h3>
+                    </div>
+                    <div class="skill-grid">
+                        <div class="skill-item">Excel for Finance <span class="skill-level expert">Expert</span></div>
+                        <div class="skill-item">QuickBooks <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Google Sheets <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Financial Reporting <span class="skill-level advanced">Advanced</span></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <h3>Automation & Technology</h3>
+                    </div>
+                    <div class="skill-grid">
+                        <div class="skill-item">VBA & Macros <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Process Automation <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">HTML <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Google Apps Script <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">SQL <span class="skill-level intermediate">Intermediate</span></div>
+                        <div class="skill-item">JavaScript <span class="skill-level intermediate">Intermediate</span></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <h3>Professional Skills</h3>
+                    </div>
+                    <div class="skill-grid">
+                        <div class="skill-item">Reporting & Analytics <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Data Visualization <span class="skill-level advanced">Advanced</span></div>
+                        <div class="skill-item">Problem Solving <span class="skill-level expert">Expert</span></div>
+                        <div class="skill-item">Attention to Detail <span class="skill-level expert">Expert</span></div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="skill-category">
-            <div class="skill-header">
-                <h3>Automation & Technology</h3>
+        <!-- Page 3: Projects, Education -->
+        <div class="page page-break">
+            <h2>Projects</h2>
+            
+            <div class="project-item">
+                <div class="project-title">Document Transmittal Tracking System</div>
+                <p class="project-description">Created a comprehensive tracking system using Google Sheets, resulting in 85% reduction in lost DRs and 100% submission visibility.</p>
             </div>
-            <div class="skill-grid">
-                <div class="skill-item">VBA & Macros <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Process Automation <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">HTML <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Google Apps Script <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">SQL <span class="skill-level intermediate">Intermediate</span></div>
-                <div class="skill-item">JavaScript <span class="skill-level intermediate">Intermediate</span></div>
+            
+            <div class="project-item">
+                <div class="project-title">AI Outreach Assistant</div>
+                <p class="project-description">Developed an AI-powered tool that increased response rates by 68% and made outreach 5x faster with 12+ industry templates.</p>
+            </div>
+            
+            <div class="project-item">
+                <div class="project-title">Automated Daily Sales Report</div>
+                <p class="project-description">Built a fully automated reporting system that made reporting 90% faster by integrating 3 data sources.</p>
+            </div>
+            
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <div class="degree">Bachelor of Science in Business Administration</div>
+                <div class="school">Major in Financial Management</div>
+                <div class="school">Iligan Capitol College</div>
+                <div class="date">2016 - 2021</div>
             </div>
         </div>
-        
-        <div class="skill-category">
-            <div class="skill-header">
-                <h3>Professional Skills</h3>
-            </div>
-            <div class="skill-grid">
-                <div class="skill-item">Reporting & Analytics <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Data Visualization <span class="skill-level advanced">Advanced</span></div>
-                <div class="skill-item">Problem Solving <span class="skill-level expert">Expert</span></div>
-                <div class="skill-item">Attention to Detail <span class="skill-level expert">Expert</span></div>
-            </div>
-        </div>
     </div>
     
-    <h2>Projects</h2>
-    
-    <div class="project-item">
-        <div class="project-title">Document Transmittal Tracking System</div>
-        <p>Created a comprehensive tracking system using Google Sheets, resulting in 85% reduction in lost DRs and 100% submission visibility.</p>
+    <div class="notification">
+        You can <a href="index.html">return to the portfolio</a> or <a href="javascript:window.print();">print this resume</a>
     </div>
     
-    <div class="project-item">
-        <div class="project-title">AI Outreach Assistant</div>
-        <p>Developed an AI-powered tool that increased response rates by 68% and made outreach 5x faster with 12+ industry templates.</p>
-    </div>
+    <a href="javascript:window.print();" class="print-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+        </svg>
+        Print Resume
+    </a>
     
-    <div class="project-item">
-        <div class="project-title">Automated Daily Sales Report</div>
-        <p>Built a fully automated reporting system that made reporting 90% faster by integrating 3 data sources.</p>
-    </div>
-    
-    <h2>Education</h2>
-    
-    <div class="education-item">
-        <div class="degree">Bachelor of Science in Business Administration</div>
-        <div class="school">Major in Financial Management</div>
-        <div class="school">Iligan Capitol College</div>
-        <div class="date">2016 - 2021</div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-hide notification after 5 seconds
+            setTimeout(function() {
+                const notification = document.querySelector('.notification');
+                if (notification) {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(function() {
+                        notification.remove();
+                    }, 500);
+                }
+            }, 5000);
+        });
+    </script>
 </body>
 </html> 
